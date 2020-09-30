@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace http_server.RouteHandlers
 {
@@ -35,6 +32,33 @@ namespace http_server.RouteHandlers
                 case ".ico":
                     header.ContentType = ContentType.X_Icon;
                     break;
+                case ".js":
+                    header.ContentType = ContentType.JavaScript;
+                    break;
+                case ".json":
+                    header.ContentType = ContentType.JSON;
+                    break;
+                case ".wav":
+                    header.ContentType = ContentType.WAV;
+                    break;
+                case ".mp4":
+                    header.ContentType = ContentType.MP4;
+                    break;
+                case ".mp3":
+                    header.ContentType = ContentType.MP3;
+                    break;
+                case ".ogg":
+                    header.ContentType = ContentType.OGG;
+                    break;
+                case ".png":
+                    header.ContentType = ContentType.PNG;
+                    break;
+                case ".txt":
+                    header.ContentType = ContentType.Text;
+                    break;
+                case ".csv":
+                    header.ContentType = ContentType.CSV;
+                    break;
             }
         }
 
@@ -60,27 +84,54 @@ namespace http_server.RouteHandlers
                 if (header.Route.Length > 0)
                 {
                     Console.WriteLine(header.Route);
-                    SetMimeType(header.Route,response.Header);
+                    SetMimeType(header.Route, response.Header);
                     string path = Path.Join(System.AppDomain.CurrentDomain.BaseDirectory, "public");
                     path = Path.Join(path, header.Route);
                     switch(response.Header.ContentType)
                     {
                         case ContentType.HTML:
-                            response.SetBody(System.IO.File.ReadAllText(path));
+                            response.SetBody(File.ReadAllText(path));
                             break;
                         case ContentType.CSS:
-                            response.SetBody(System.IO.File.ReadAllText(path));
+                            response.SetBody(File.ReadAllText(path));
                             break;
                         case ContentType.JPEG:
-                            response.SetBody(System.IO.File.ReadAllBytes(path));
+                            response.SetBody(File.ReadAllBytes(path));
                             break;
                         case ContentType.X_Icon:
-                            response.SetBody(System.IO.File.ReadAllBytes(path));
+                            response.SetBody(File.ReadAllBytes(path));
                             break;
-                        default:
-                            response.SetBody(System.IO.File.ReadAllBytes(path));
+                        case ContentType.CSV:
+                            response.SetBody(File.ReadAllText(path));
+                            break;
+                        case ContentType.JavaScript:
+                            response.SetBody(File.ReadAllText(path));
+                            break;
+                        case ContentType.JSON:
+                            response.SetBody(File.ReadAllText(path));
+                            break;
+                        case ContentType.MP3:
+                            response.SetBody(File.ReadAllBytes(path));
+                            break;
+                        case ContentType.MP4:
+                            response.SetBody(File.ReadAllBytes(path));
+                            break;
+                        case ContentType.OGG:
+                            response.SetBody(File.ReadAllBytes(path));
+                            break;
+                        case ContentType.PNG:
+                            response.SetBody(File.ReadAllBytes(path));
+                            break;
+                        case ContentType.Text:
+                            response.SetBody(File.ReadAllText(path));
+                            break;
+                        case ContentType.WAV:
+                            response.SetBody(File.ReadAllBytes(path));
                             break;
 
+                        default:
+                            response.SetBody(File.ReadAllBytes(path));
+                            break;
                     }
                 }
                 else
