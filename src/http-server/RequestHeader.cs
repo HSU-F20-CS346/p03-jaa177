@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace http_server
@@ -18,12 +16,14 @@ namespace http_server
             Data = new Dictionary<string, string>();
         }
 
+        //This will grab the query string (the string that contains the data in a POST request), which is just the last line in the request header.
         public static string GetQueryStringFromHeader(string data)
         {
             string[] vars = data.Split("\n");
             return vars[vars.Length - 1];
         }
 
+        //Sets the Data variable. Only run if there is a POST request.
         public static void SetData(string qs)
         {
             string[] vars = qs.Split("&");
@@ -56,6 +56,7 @@ namespace http_server
             }
         }
 
+        //Accessor function for the Data variable
         public Dictionary<string, string> getData()
         {
             return Data;
@@ -69,7 +70,6 @@ namespace http_server
         public static RequestHeader FromString(string rawHeader)
         {
             RequestHeader header = new RequestHeader();
-            string data;
 
             //https://regexr.com/ is a great site for testing new REGEX
             Regex getMethodPattern = new Regex(@"GET ([\/\w\d.]*)", RegexOptions.Compiled);
