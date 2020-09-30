@@ -7,25 +7,25 @@ namespace http_server.RouteHandlers
     {
         public void HandleRoute(RequestHeader header, Response response)
         {
-            
-            if(header.Route == "/login.html")
+
+            if (header.Route == "/login.html")
             {
                 Dictionary<string, string> postValues = header.getData();
-                if(postValues.ContainsKey("UserEmail") && postValues.ContainsKey("UserPassword"))
+                if (postValues.ContainsKey("UserEmail") && postValues.ContainsKey("UserPassword"))
                 {
-                    if(postValues["UserEmail"] == "luckylogger@humboldt.edu" && postValues["UserPassword"] == "password")
+                    if (postValues["UserEmail"] == "luckylogger@humboldt.edu" && postValues["UserPassword"] == "password")
                     {
                         string res_file = Path.Join(System.AppDomain.CurrentDomain.BaseDirectory, "public");
                         res_file = Path.Join(res_file, "success.html");
                         response.SetBody(File.ReadAllText(res_file));
-                    } 
+                    }
                     else
                     {
                         string res_file = Path.Join(System.AppDomain.CurrentDomain.BaseDirectory, "public");
                         res_file = Path.Join(res_file, "failure.html");
                         response.SetBody(File.ReadAllText(res_file));
                     }
-                } 
+                }
                 else
                 {
                     //Error 400 Bad Request

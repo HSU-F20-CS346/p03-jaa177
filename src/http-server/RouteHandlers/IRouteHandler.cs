@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace http_server.RouteHandlers
+﻿namespace http_server.RouteHandlers
 {
     public interface IRouteHandler
     {
