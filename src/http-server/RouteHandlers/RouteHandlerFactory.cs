@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace http_server.RouteHandlers
 {
@@ -17,6 +15,14 @@ namespace http_server.RouteHandlers
                 //PA3 TODO: Add case for RequestMethod.POST
                 case RequestMethod.POST:
                     return new PostRouteHandler();
+                    break;
+
+                case RequestMethod.PUT:
+                    return new PutRouteHandler();
+                    break;
+
+                case RequestMethod.DELETE:
+                    return new DeleteRouteHandler();
                     break;
 
                 default:

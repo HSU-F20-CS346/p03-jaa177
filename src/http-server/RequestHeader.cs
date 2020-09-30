@@ -23,6 +23,10 @@ namespace http_server
             return vars[vars.Length - 1];
         }
 
+        public static void setPutData(string qs)
+        {
+            Data.Add("reqput_file_contents", qs);
+        }
         //Sets the Data variable. Only run if there is a POST request.
         public static void SetData(string qs)
         {
@@ -62,6 +66,11 @@ namespace http_server
             return Data;
         }
 
+        public string getPutData()
+        {
+            return Data["reqput_file_contents"];
+        }
+
         public override string ToString()
         {
             return string.Format("{0} {1}", Method.ToString(), Route);
@@ -88,6 +97,24 @@ namespace http_server
                 header.Route = postMethodMatch.Groups[1].Value;
                 SetData(GetQueryStringFromHeader(rawHeader));
                 
+            }
+
+            Regex putMethodPattern = new Regex(@"PUT ([\/\w\d.]*)", RegexOptions.Compiled);
+            var putMethodMatch = putMethodPattern.Match(rawHeader);
+            if (postMethodMatch.Success == true)
+            {
+                header.Method = RequestMethod.PUT;
+                header.Route = postMethodMatch.Groups[1].Value;
+                setPutData(GetQueryStringFromHeader(rawHeader));
+
+            }
+            Regex deleteMethodPattern = new Regex(@"DELETE ([\/\w\d.]*)", RegexOptions.Compiled);
+            var deleteMethodMatch = deleteMethodPattern.Match(rawHeader);
+            if (postMethodMatch.Success == true)
+            {
+                header.Method = RequestMethod.DELETE;
+                header.Route = postMethodMatch.Groups[1].Value;
+
             }
 
             return header;
