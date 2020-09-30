@@ -32,7 +32,6 @@ C:\Users\Jordan\source\repos\http-server-master\src\http-server\bin\Debug\netcor
 C:\Users\Jordan\source\repos\http-server-master\src\http-server\bin\Debug\netcoreapp2.1\http-server.runtimeconfig.dev.json
 C:\Users\Jordan\source\repos\http-server-master\src\http-server\bin\Debug\netcoreapp2.1\http-server.dll
 C:\Users\Jordan\source\repos\http-server-master\src\http-server\bin\Debug\netcoreapp2.1\http-server.pdb
-C:\Users\Jordan\source\repos\http-server-master\src\http-server\obj\Debug\netcoreapp2.1\http-server.csprojAssemblyReference.cache
 C:\Users\Jordan\source\repos\http-server-master\src\http-server\obj\Debug\netcoreapp2.1\http-server.AssemblyInfoInputs.cache
 C:\Users\Jordan\source\repos\http-server-master\src\http-server\obj\Debug\netcoreapp2.1\http-server.AssemblyInfo.cs
 C:\Users\Jordan\source\repos\http-server-master\src\http-server\obj\Debug\netcoreapp2.1\http-server.csproj.CoreCompileInputs.cache
