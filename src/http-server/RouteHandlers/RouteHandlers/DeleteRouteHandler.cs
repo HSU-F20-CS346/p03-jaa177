@@ -2,7 +2,7 @@
 
 namespace http_server.RouteHandlers
 {
-    public class PutRouteHandler : IRouteHandler
+    public class DeleteRouteHandler : IRouteHandler
     {
         public void HandleRoute(RequestHeader header, Response response)
         {
@@ -14,8 +14,7 @@ namespace http_server.RouteHandlers
             {
                 string path = Path.Join(System.AppDomain.CurrentDomain.BaseDirectory, "public");
                 path = Path.Join(path, header.Route);
-                string filedata = header.getPutData();
-                File.WriteAllText(path, filedata);
+                File.Delete(path);
                 response.Header.ResponseCode = 200;
             }
         }
