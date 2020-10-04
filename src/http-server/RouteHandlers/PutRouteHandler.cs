@@ -15,8 +15,8 @@ namespace http_server.RouteHandlers
                 string path = Path.Join(System.AppDomain.CurrentDomain.BaseDirectory, "public");
                 path = Path.Join(path, header.Route);
                 string filedata = header.getPutData();
-
                 File.WriteAllText(path, filedata);
+                response.Header.ResponseCode = 200;
             }
         }
     }
