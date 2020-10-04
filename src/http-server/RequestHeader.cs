@@ -95,26 +95,23 @@ namespace http_server
             {
                 header.Method = RequestMethod.POST;
                 header.Route = postMethodMatch.Groups[1].Value;
-                SetData(GetQueryStringFromHeader(rawHeader));
-                
+                SetData(GetQueryStringFromHeader(rawHeader));   
             }
 
             Regex putMethodPattern = new Regex(@"PUT ([\/\w\d.]*)", RegexOptions.Compiled);
             var putMethodMatch = putMethodPattern.Match(rawHeader);
-            if (postMethodMatch.Success == true)
+            if (putMethodMatch.Success == true)
             {
                 header.Method = RequestMethod.PUT;
                 header.Route = postMethodMatch.Groups[1].Value;
                 setPutData(GetQueryStringFromHeader(rawHeader));
-
             }
             Regex deleteMethodPattern = new Regex(@"DELETE ([\/\w\d.]*)", RegexOptions.Compiled);
             var deleteMethodMatch = deleteMethodPattern.Match(rawHeader);
-            if (postMethodMatch.Success == true)
+            if (deleteMethodMatch.Success == true)
             {
                 header.Method = RequestMethod.DELETE;
                 header.Route = postMethodMatch.Groups[1].Value;
-
             }
 
             return header;
