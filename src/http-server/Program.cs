@@ -49,9 +49,9 @@ namespace http_server
 
         static void Main(string[] args)
         {
-            foreach(string arg in args)
+            int c = 1;
+            foreach (string arg in args)
             {
-                int c = 1;
                 switch (arg) {
                     case "--createDatabase":
                         createDb = true;
@@ -74,7 +74,7 @@ namespace http_server
                         startHttps = true;
                         httpsCertificate = args[c];
                         break;
-                    case "--httpsCertificatePassword":
+                    case "--httpsPassword":
                         startHttps = true;
                         httpsCertificatePass = args[c];
                         break;
@@ -105,6 +105,7 @@ namespace http_server
                 HttpsServer server = new HttpsServer();
                 server.Address = IPAddress.Any;
                 server.Port = httpsPort;
+                Console.WriteLine("{0}: {1}", httpsCertificate, httpsCertificatePass);
                 server.serverCertificate = new System.Security.Cryptography.X509Certificates.X509Certificate2(Path.Join(Path.Join(System.AppDomain.CurrentDomain.BaseDirectory, "keys"), httpsCertificate), httpsCertificatePass);
 
                 ThreadStart httpsStart = () => { server.Start(); };
