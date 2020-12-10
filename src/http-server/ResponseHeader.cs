@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace http_server
 {
@@ -13,6 +14,7 @@ namespace http_server
         /// Should match the length of the response body in bytes
         /// </summary>
         public int ContentLength { get; set; }
+        public string cookieDataString { get; set; }
 
         public DateTime Date { get; set; }
 
@@ -30,13 +32,26 @@ namespace http_server
                             "Date: {2}\r\n" +
                             "Server: My custom server\r\n" +
                             "Content-Length: {3}\r\n" +
-                            "Connection: Close\r\n\r\n",
+                            "Connection: Keep-Alive\r\n" +
+                            "{4}\r\n\r\n",
                             ResponseCode,
                             ContentType.ToHeader(),
                             Date.ToUniversalTime().ToString("ddd, dd MM yyyy HH:mm:ss GMT"),
-                            ContentLength
+                            ContentLength,
+                            cookieDataString
                             );
             return header;
+        }
+
+        public void setCookieData(Dictionary<string, string> cookieData)
+        {
+            string cs = "Set-Cookie: ";
+            foreach (var e in cookieData)
+            {
+                cs += e.Key + "=" + e.Value + "; ";
+            }
+
+            cookieDataString = cs;
         }
     }
 }

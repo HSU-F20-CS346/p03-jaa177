@@ -9,6 +9,7 @@ namespace http_server
         public RequestMethod Method { get; set; }
         public string Route { get; set; }
         public static Dictionary<string,string> Data { get; set; }
+        public static Dictionary<string, string> CookieData { get; set; }
 
         public RequestHeader()
         {
@@ -21,6 +22,24 @@ namespace http_server
         {
             string[] vars = data.Split("\n");
             return vars[vars.Length - 1];
+        }
+
+        public static void getCookieData(string rawHeader)
+        {
+            string[] lines = rawHeader.Split("\n");
+            foreach(var l in lines)
+            {
+                if(l.Contains("Cookie: "))
+                {
+                    string[] data = l.Split(": ");
+                    string[] cookieData = data[1].Split("; ");
+                    foreach(var d in cookieData)
+                    {
+                        string[] kv = d.Split("=");
+                        CookieData.Add(kv[0], kv[1]);
+                    }
+                }
+            }
         }
 
         public static void setPutData(string qs)
@@ -87,6 +106,7 @@ namespace http_server
             {
                 header.Method = RequestMethod.GET;
                 header.Route = getMethodMatch.Groups[1].Value;
+                getCookieData(rawHeader);
             }
 
             Regex postMethodPattern = new Regex(@"POST ([\/\w\d.]*)", RegexOptions.Compiled);
@@ -95,6 +115,7 @@ namespace http_server
             {
                 header.Method = RequestMethod.POST;
                 header.Route = postMethodMatch.Groups[1].Value;
+                getCookieData(rawHeader);
                 SetData(GetQueryStringFromHeader(rawHeader));   
             }
 
@@ -104,6 +125,7 @@ namespace http_server
             {
                 header.Method = RequestMethod.PUT;
                 header.Route = postMethodMatch.Groups[1].Value;
+                getCookieData(rawHeader);
                 setPutData(GetQueryStringFromHeader(rawHeader));
             }
             Regex deleteMethodPattern = new Regex(@"DELETE ([\/\w\d.]*)", RegexOptions.Compiled);
@@ -112,6 +134,8 @@ namespace http_server
             {
                 header.Method = RequestMethod.DELETE;
                 header.Route = postMethodMatch.Groups[1].Value;
+                getCookieData(rawHeader);
+
             }
 
             return header;
