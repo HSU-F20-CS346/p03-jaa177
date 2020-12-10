@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace http_server.RouteHandlers
 {
@@ -59,6 +60,15 @@ namespace http_server.RouteHandlers
                 case ".csv":
                     header.ContentType = ContentType.CSV;
                     break;
+                case ".gif":
+                    header.ContentType = ContentType.GIF;
+                    break;
+                case ".ts":
+                    header.ContentType = ContentType.TS;
+                    break;
+                case ".m3u8":
+                    header.ContentType = ContentType.m3u8;
+                    break;
             }
         }
 
@@ -77,7 +87,10 @@ namespace http_server.RouteHandlers
             }
             else if (header.Route == "/")
             {
+                Dictionary<string, string> testDict = new Dictionary<string, string>();
+                testDict.Add("test_cookie", "Hello, World!");
                 response.SetBody(File.ReadAllText(Constants.DEFAULT_ROUTE));
+                response.Header.setCookieData(testDict);
             }
             else
             {
@@ -127,6 +140,15 @@ namespace http_server.RouteHandlers
                             break;
                         case ContentType.WAV:
                             response.SetBody(File.ReadAllBytes(path));
+                            break;
+                        case ContentType.GIF:
+                            response.SetBody(File.ReadAllBytes(path));
+                            break;
+                        case ContentType.TS:
+                            response.SetBody(File.ReadAllBytes(path));
+                            break;
+                        case ContentType.m3u8:
+                            response.SetBody(File.ReadAllText(path));
                             break;
 
                         default:

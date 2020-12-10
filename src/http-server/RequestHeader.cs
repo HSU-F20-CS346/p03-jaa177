@@ -15,6 +15,7 @@ namespace http_server
         {
             Method = RequestMethod.Unknown;
             Data = new Dictionary<string, string>();
+            CookieData = new Dictionary<string, string>();
         }
 
         //This will grab the query string (the string that contains the data in a POST request), which is just the last line in the request header.
@@ -23,24 +24,25 @@ namespace http_server
             string[] vars = data.Split("\n");
             return vars[vars.Length - 1];
         }
-		/*
-																									  .---. .---. 
-																									 :     : o   :    me want cookie!
-																								 _..-:   o :     :-.._    /
-																							 .-''  '  `---' `---' "   ``-.    
-																						   .'   "   '  "  .    "  . '  "  `.  
-																						  :   '.---.,,.,...,.,.,.,..---.  ' ;
-																						  `. " `.                     .' " .'
-																						   `.  '`.                   .' ' .'
-																							`.    `-._           _.-' "  .'  .----.
-																							  `. "    '"--...--"'  . ' .'  .'  o   `.
-																							  .'`-._'    " .     " _.-'`. :       o  :
-																							.'      ```--.....--'''    ' `:_ o       :
-																						  .'    "     '         "     "   ; `.;";";";'
-																						 ;         '       "       '     . ; .' ; ; ;
-																						;     '         '       '   "    .'      .-'
-																						'  "     "   '      "           "    _.-'
-		*/
+        /*
+                                                                             *    .---. .---. 
+                                                                                 :     : o   :    me want cookie!
+                                                                             _..-:   o :     :-.._    /
+                                                                         .-''  '  `---' `---' "   ``-.    
+                                                                       .'   "   '  "  .    "  . '  "  `.  
+                                                                      :   '.---.,,.,...,.,.,.,..---.  ' ;
+                                                                      `. " `.                     .' " .'
+                                                                       `.  '`.                   .' ' .'
+                                                                        `.    `-._           _.-' "  .'  .----.
+                                                                          `. "    '"--...--"'  . ' .'  .'  o   `.
+                                                                          .'`-._'    " .     " _.-'`. :       o  :
+                                                                        .'      ```--.....--'''    ' `:_ o       :
+                                                                      .'    "     '         "     "   ; `.;";";";'
+                                                                     ;         '       "       '     . ; .' ; ; ;
+                                                                    ;     '         '       '   "    .'      .-'
+                                                                    '  "     "   '      "           "    _.-'
+                                                                             *
+         */
 
         public static void getCookieData(string rawHeader)
         {
