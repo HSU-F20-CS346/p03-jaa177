@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <Folder Include="keys\" />
+    <Folder Include="public\vidserve\" />
   </ItemGroup>
 
   <ItemGroup>

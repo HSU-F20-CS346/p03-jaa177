@@ -25,18 +25,19 @@ namespace http_server
 
         public override string ToString()
         {
-
+            DateTime now = DateTime.Now;
             string header = string.Format("HTTP/1.1 {0}\r\n" +
                             "Content-type: {1}\r\n" +
                             "Cache-Control: max-age=0\r\n" +
                             "Date: {2}\r\n" +
-                            "Server: My custom server\r\n" +
+                            "Server: Glorious Server v1.0\r\n" +
                             "Content-Length: {3}\r\n" +
-                            "Connection: Keep-Alive\r\n" +
+                            "Connection: keep-alive\r\n" +
+                            "Keep-Alive: timeout=15; max=1000\r\n" +
                             "{4}\r\n\r\n",
                             ResponseCode,
                             ContentType.ToHeader(),
-                            Date.ToUniversalTime().ToString("ddd, dd MM yyyy HH:mm:ss GMT"),
+                            now.ToString("ddd, dd MM yyyy HH:mm:ss GMT"),
                             ContentLength,
                             cookieDataString
                             );
